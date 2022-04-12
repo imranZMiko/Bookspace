@@ -2,11 +2,18 @@ class User{
   late String _name;
   late String _email;
   late String _profilePictureUrl;
+  late String _userID;
 
-  User({required String name, required String email, required String profilePictureUrl}){
+  User({required String userID, required String name, required String email, required String profilePictureUrl}){
+    _userID = userID;
     _name = name;
     _email = email;
     _profilePictureUrl = profilePictureUrl;
+  }
+
+  String getUserID() => _userID;
+  void setUserID(String userID){
+    _userID = userID;
   }
 
   String getName() => _name;
