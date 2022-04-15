@@ -1,4 +1,6 @@
+import 'package:bookspace/view/listing.dart';
 import 'package:bookspace/view/login.dart';
+import 'package:bookspace/view/register.dart';
 import 'package:bookspace/view/splash.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +20,9 @@ class MyApp extends StatelessWidget {
 
         primarySwatch: Colors.blue,
       ),
-      home: LoginScreen(),
+      home: Scaffold(
+        body: RegisterScreen(),
+      ),
 
     );
   }

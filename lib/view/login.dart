@@ -10,25 +10,22 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Container(
-          margin: EdgeInsets.all(20.0),
-          child: Form(
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: 200,),
-                const Text('Welcome Back!',
-                  style:TextStyle(fontWeight: FontWeight.bold,
-                      fontSize: 35) ,),
-                const SizedBox(height: 30,),
-                emailField(),
-                const SizedBox(height: 20,),
-                passwordField(),
-                SizedBox(height: 20,),
-                submitButton()
-              ],
-            ),
+    return Center(
+      child: SingleChildScrollView(
+        padding: EdgeInsets.all(20.0),
+        child: Form(
+
+          child: Column(
+            children: <Widget>[
+              const Text('Welcome Back!',
+                style:TextStyle(fontWeight: FontWeight.bold,
+                    fontSize: 35) ,),
+              emailField(),
+              passwordField(),
+              const SizedBox(height: 50,),
+              submitButton(),
+              goToRegisterPage()
+            ],
           ),
         ),
       ),
@@ -36,26 +33,77 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget emailField(){
-    return TextFormField(
-      decoration: InputDecoration(
-        labelText: 'Email',
-        hintText: 'you@example.com',
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(15.0,15.0,15.0,0.0),
+      child: TextFormField(
+        textInputAction: TextInputAction.next,
+        decoration: const InputDecoration(
+          labelText: 'Email',
+          hintText: 'you@example.com',
+
+        ),
       ),
     );
   }
 
   Widget passwordField(){
-    return TextFormField(
-      decoration: const InputDecoration(
-        labelText: 'Password',
-        hintText: '******',
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(15.0,15.0,15.0,0.0),
+      child: TextFormField(
+        textInputAction: TextInputAction.done,
+        decoration: const InputDecoration(
+          labelText: 'Password',
+          hintText: '******',
+        ),
+        obscureText: true,
       ),
-      obscureText: true,
     );
   }
 
   Widget submitButton(){
-    return ElevatedButton(onPressed: (){},
-        child: Text('Login'));
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10.0,60,10,0),
+      child: SizedBox(
+        width: 150,
+        height: 40,
+        child: ElevatedButton(onPressed: (){
+          print('Pressed');
+        },
+          child: const Text(
+            'Register',
+            style: TextStyle(
+                fontSize: 20
+            )
+            ,)
+          ,),
+      ),
+    );
+  }
+
+  Widget goToRegisterPage(){
+    return Padding(
+      padding: EdgeInsets.all(20.0),
+      child: Center(
+        child: RichText(
+          text: TextSpan(
+              text: "Don't have an account?  ",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 12,
+              ),
+              children: [
+                TextSpan(
+                    text: 'Register',
+                    style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold
+                    ),
+                    recognizer: _gestureRecognizer
+                )
+              ]
+          ),
+        ),
+      ) ,
+    );
   }
 }
