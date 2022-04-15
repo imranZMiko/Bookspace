@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 import '../main.dart';
@@ -8,7 +7,7 @@ class SplashScreen extends StatelessWidget{
   Widget build(BuildContext context   ) {
     // TODO: implement build
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Splash',
       theme: ThemeData(
 
         primarySwatch: Colors.blue,
@@ -17,23 +16,28 @@ class SplashScreen extends StatelessWidget{
 
         body: Center(
 
-          child: Column(
-
+          child: Stack(
             children: <Widget>[
-              Image.asset('assets/splash_background.jpg'),
-              SizedBox(height: 500),
-              SizedBox(height: 50, width: 250,
-              child: ElevatedButton(
-                onPressed: (){},
-                child: Text('Register'),
-              ),),
-              SizedBox(height: 20,),
-              SizedBox(height: 50, width: 250,
-                child: ElevatedButton(
-                  onPressed: (){},
-                  child: Text('Login'),
-                ),),
+              Center(child: Image.asset('assets/splash_background.jpg')),
+              Center(
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(height: 600,),
+                    SizedBox(height: 50, width: 250,
+                      child: ElevatedButton(
+                        onPressed: (){},
+                        child: Text('Register'),
+                      ),),
+                    SizedBox(height: 20,),
+                    SizedBox(height: 50, width: 250,
+                      child: ElevatedButton(
+                        onPressed: (){},
+                        child: Text('Login'),
+                      ),),
 
+                  ],
+                ),
+              )
             ],
           )
         )
