@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -8,6 +9,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final TapGestureRecognizer _gestureRecognizer = TapGestureRecognizer()..onTap = (){
+    debugPrint("go to login screen");
+  };
+
   @override
   Widget build(BuildContext context) {
     return Center(
