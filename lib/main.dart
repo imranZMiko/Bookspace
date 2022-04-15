@@ -1,6 +1,7 @@
 import 'package:bookspace/view/home.dart';
 import 'package:bookspace/view/listing.dart';
 import 'package:bookspace/view/login.dart';
+import 'package:bookspace/view/postInspect.dart';
 import 'package:bookspace/view/register.dart';
 import 'package:bookspace/view/splash.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class _MyAppState extends State<MyApp> {
             color: Colors.white,
           ),
         ),
-        body: HomeScreen(),
+        body: PostInspect(),
       ),
 
     );
