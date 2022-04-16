@@ -18,7 +18,7 @@ class PostInspect extends StatelessWidget {
               tileColor: Colors.white70,
               title: Text('Name of posting guy'),
               leading: CircleAvatar(
-                backgroundImage: AssetImage('assets/Naruto_newshot.webp'),
+                backgroundImage: AssetImage('assets/Naruto.webp'),
               ),
             ),
           ),
