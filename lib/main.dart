@@ -9,7 +9,7 @@ import 'package:bookspace/view/widgets/postInspect.dart';
 import 'package:bookspace/view/screens/profileScreen.dart';
 import 'package:bookspace/view/screens/register.dart';
 import 'package:bookspace/view/screens/searchScreen.dart';
-import 'package:bookspace/view/screens/splash.dart';
+import 'package:bookspace/view/screens/splashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
           fontFamily: "Poppins",
         ),
       ),
-      initialRoute: SearchScreen.routeName,
+      initialRoute: SplashScreen.routeName,
       routes: {
         HomeScreen.routeName: (ctx) => const HomeScreen(),
         EditProfileScreen.routeName: (ctx) => const EditProfileScreen(),
