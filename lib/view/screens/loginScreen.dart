@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
+  static const String routeName = '/loginScreen';
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -15,22 +16,24 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SingleChildScrollView(
-        padding: EdgeInsets.all(20.0),
-        child: Form(
+    return Scaffold(
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20.0),
+          child: Form(
 
-          child: Column(
-            children: <Widget>[
-              const Text('Welcome Back!',
-                style:TextStyle(fontWeight: FontWeight.bold,
-                    fontSize: 35) ,),
-              emailField(),
-              passwordField(),
-              const SizedBox(height: 50,),
-              submitButton(),
-              goToRegisterPage()
-            ],
+            child: Column(
+              children: <Widget>[
+                const Text('Welcome Back!',
+                  style:TextStyle(fontWeight: FontWeight.bold,
+                      fontSize: 35) ,),
+                emailField(),
+                passwordField(),
+                const SizedBox(height: 50,),
+                submitButton(),
+                goToRegisterPage()
+              ],
+            ),
           ),
         ),
       ),

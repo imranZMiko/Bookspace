@@ -1,12 +1,15 @@
+import 'package:bookspace/models/listing.dart';
+import 'package:bookspace/models/post.dart';
 import 'package:flutter/material.dart';
 
-class Listing extends StatelessWidget {
-  const Listing({Key? key}) : super(key: key);
+class PostCard extends StatelessWidget {
+  const PostCard({Key? key, required this.post}) : super(key: key);
+
+  final Post post;
 
   @override
   Widget build(BuildContext context) {
     return  Card(
-      color: Colors.grey[200],
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0)
       ),

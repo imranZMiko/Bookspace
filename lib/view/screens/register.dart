@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
+  static const String routeName = '/registerScreen';
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -15,22 +16,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SingleChildScrollView(
-        padding: EdgeInsets.all(20.0),
-        child: Form(
-          child: Column(
-            children: <Widget>[
-              const Text('Welcome To Bookspace!',
-                style:TextStyle(fontWeight: FontWeight.bold,
-                    fontSize: 30) ,),
-              nameField(),
-              emailField(),
-              passwordField(),
-              confirmPasswordField(),
-              submitButton(),
-              goToLoginPage(),
-            ],
+    return Scaffold(
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20.0),
+          child: Form(
+            child: Column(
+              children: <Widget>[
+                const Text('Welcome To Bookspace!',
+                  style:TextStyle(fontWeight: FontWeight.bold,
+                      fontSize: 30) ,),
+                nameField(),
+                emailField(),
+                passwordField(),
+                confirmPasswordField(),
+                submitButton(),
+                goToLoginPage(),
+              ],
+            ),
           ),
         ),
       ),

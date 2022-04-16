@@ -1,47 +1,59 @@
-import 'package:bookspace/view/editProfile.dart';
-import 'package:bookspace/view/home.dart';
-import 'package:bookspace/view/listing.dart';
-import 'package:bookspace/view/login.dart';
-import 'package:bookspace/view/newPostScreen.dart';
-import 'package:bookspace/view/postInspect.dart';
-import 'package:bookspace/view/profileScreen.dart';
-import 'package:bookspace/view/register.dart';
-import 'package:bookspace/view/searchScreen.dart';
-import 'package:bookspace/view/splash.dart';
+import 'package:bookspace/constants/custom_colors.dart';
+import 'package:bookspace/providers/catalogueProvider.dart';
+import 'package:bookspace/view/screens/editProfileScreen.dart';
+import 'package:bookspace/view/screens/homeScreen.dart';
+import 'package:bookspace/view/widgets/postCard.dart';
+import 'package:bookspace/view/screens/loginScreen.dart';
+import 'package:bookspace/view/screens/newPostScreen.dart';
+import 'package:bookspace/view/widgets/postInspect.dart';
+import 'package:bookspace/view/screens/profileScreen.dart';
+import 'package:bookspace/view/screens/register.dart';
+import 'package:bookspace/view/screens/searchScreen.dart';
+import 'package:bookspace/view/screens/splash.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp( MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: CatalogueProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  // This widget is the root of your application.
-  @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Dummy'),
-          leading: BackButton(
-            color: Colors.white,
-          ),
+      title: "Bookspace:",
+      theme: ThemeData.from(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: CustomColors.lightGreen,
+          primary: CustomColors.lightGreen,
+          surface: Colors.white,
+          background: CustomColors.grayGreen,
+          onPrimary: Colors.black,
         ),
-        body: EditProfileScreen(),
+        textTheme: Theme.of(context).textTheme.apply(
+          fontFamily: "Poppins",
+        ),
       ),
-
+      initialRoute: SearchScreen.routeName,
+      routes: {
+        HomeScreen.routeName: (ctx) => const HomeScreen(),
+        EditProfileScreen.routeName: (ctx) => const EditProfileScreen(),
+        LoginScreen.routeName: (ctx) => const LoginScreen(),
+        NewPostScreen.routeName: (ctx) => const NewPostScreen(),
+        ProfileScreen.routeName: (ctx) => const ProfileScreen(),
+        RegisterScreen.routeName: (ctx) => const RegisterScreen(),
+        SplashScreen.routeName: (ctx) => SplashScreen(),
+        SearchScreen.routeName: (ctx) => const SearchScreen(),
+      },
     );
   }
 }
-
