@@ -11,7 +11,7 @@ class AuthButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
-        minimumSize: const Size(300, 45),
+        minimumSize: const Size(350, 45),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
         elevation: 0,
       ).merge(

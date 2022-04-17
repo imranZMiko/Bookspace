@@ -2,6 +2,7 @@ import 'package:bookspace/constants/custom_colors.dart';
 import 'package:bookspace/providers/catalogueProvider.dart';
 import 'package:bookspace/view/screens/editProfileScreen.dart';
 import 'package:bookspace/view/screens/homeScreen.dart';
+import 'package:bookspace/view/screens/tabScreen.dart';
 import 'package:bookspace/view/widgets/postCard.dart';
 import 'package:bookspace/view/screens/loginScreen.dart';
 import 'package:bookspace/view/screens/newPostScreen.dart';
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
           fontFamily: "Poppins",
         ),
       ),
-      initialRoute: SplashScreen.routeName,
+      initialRoute: TabScreen.routeName,
       routes: {
         HomeScreen.routeName: (ctx) => const HomeScreen(),
         EditProfileScreen.routeName: (ctx) => const EditProfileScreen(),
@@ -51,8 +52,9 @@ class MyApp extends StatelessWidget {
         NewPostScreen.routeName: (ctx) => const NewPostScreen(),
         ProfileScreen.routeName: (ctx) => const ProfileScreen(),
         RegisterScreen.routeName: (ctx) => const RegisterScreen(),
-        SplashScreen.routeName: (ctx) => SplashScreen(),
+        SplashScreen.routeName: (ctx) => const SplashScreen(),
         SearchScreen.routeName: (ctx) => const SearchScreen(),
+        TabScreen.routeName: (ctx) => const TabScreen(),
       },
     );
   }

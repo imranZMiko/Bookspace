@@ -1,5 +1,13 @@
+import 'package:bookspace/constants/custom_navigator.dart';
+import 'package:bookspace/view/screens/homeScreen.dart';
+import 'package:bookspace/view/screens/register.dart';
+import 'package:bookspace/view/widgets/authButton.dart';
+import 'package:bookspace/view/widgets/authNavigation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
+import '../../constants/custom_colors.dart';
+import '../widgets/authField.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -10,28 +18,32 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TapGestureRecognizer _gestureRecognizer = TapGestureRecognizer()..onTap = (){
-    debugPrint("go to login screen");
-  };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CustomColors.gray,
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20.0),
           child: Form(
-
             child: Column(
-              children: <Widget>[
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 150,),
                 const Text('Welcome Back!',
-                  style:TextStyle(fontWeight: FontWeight.bold,
-                      fontSize: 35) ,),
-                emailField(),
-                passwordField(),
+                  style:TextStyle(fontWeight: FontWeight.w600,
+                      fontSize: 18) ,),
                 const SizedBox(height: 50,),
-                submitButton(),
-                goToRegisterPage()
+                const AuthField(label: "Enter your email", isObscured: false, isLast: false),
+                const AuthField(label: "Enter password", isObscured: true, isLast: true),
+                const SizedBox(height: 50,),
+                AuthButton(text: "Log In", onPressed: (){
+                  CustomNavigator.replaceWithoutAnimation(context, const HomeScreen());
+                }),
+                AuthNavigation(headerText: "New to Bookspace?", buttonText: "Register", onPressed: (){
+                  CustomNavigator.replaceWithoutAnimation(context, const RegisterScreen());
+                },),
               ],
             ),
           ),
@@ -40,78 +52,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget emailField(){
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(15.0,15.0,15.0,0.0),
-      child: TextFormField(
-        textInputAction: TextInputAction.next,
-        decoration: const InputDecoration(
-          labelText: 'Email',
-          hintText: 'you@example.com',
-
-        ),
-      ),
-    );
-  }
-
-  Widget passwordField(){
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(15.0,15.0,15.0,0.0),
-      child: TextFormField(
-        textInputAction: TextInputAction.done,
-        decoration: const InputDecoration(
-          labelText: 'Password',
-          hintText: '******',
-        ),
-        obscureText: true,
-      ),
-    );
-  }
-
-  Widget submitButton(){
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(10.0,60,10,0),
-      child: SizedBox(
-        width: 150,
-        height: 40,
-        child: ElevatedButton(onPressed: (){
-          print('Pressed');
-        },
-          child: const Text(
-            'Register',
-            style: TextStyle(
-                fontSize: 20
-            )
-            ,)
-          ,),
-      ),
-    );
-  }
-
-  Widget goToRegisterPage(){
-    return Padding(
-      padding: EdgeInsets.all(20.0),
-      child: Center(
-        child: RichText(
-          text: TextSpan(
-              text: "Don't have an account?  ",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 12,
-              ),
-              children: [
-                TextSpan(
-                    text: 'Register',
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold
-                    ),
-                    recognizer: _gestureRecognizer
-                )
-              ]
-          ),
-        ),
-      ) ,
-    );
-  }
 }

@@ -2,7 +2,9 @@ import 'package:bookspace/constants/custom_colors.dart';
 import 'package:flutter/material.dart';
 
 class NewPostButton extends StatelessWidget {
-  const NewPostButton({Key? key}) : super(key: key);
+  const NewPostButton({Key? key, required this.onPressed, required this.buttonColor}) : super(key: key);
+  final void Function() onPressed;
+  final Color buttonColor;
 
   @override
   Widget build(BuildContext context) {
@@ -11,13 +13,13 @@ class NewPostButton extends StatelessWidget {
       width: 75,
       child: FittedBox(
         child: FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: CustomColors.deepGreen,
+          onPressed: onPressed,
+          backgroundColor: CustomColors.midGreen,
           tooltip: 'Increment',
-          child: const Icon(
+          child: Icon(
             Icons.add_circle,
             size: 30,
-            color: Colors.black,
+            color: buttonColor,
           ),
           elevation: 8.0,
         ),

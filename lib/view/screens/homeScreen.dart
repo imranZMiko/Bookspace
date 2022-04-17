@@ -1,7 +1,6 @@
 import 'package:bookspace/models/listing.dart';
 import 'package:bookspace/models/post.dart';
 import 'package:bookspace/providers/catalogueProvider.dart';
-import 'package:bookspace/view/widgets/bottomTabBar.dart';
 import 'package:bookspace/view/widgets/newPostButton.dart';
 import 'package:bookspace/view/widgets/postCard.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Bookspace"),
         elevation: 0,
-        toolbarHeight: 65,
+        toolbarHeight: 66,
       ),
       body: Consumer<CatalogueProvider>(
         builder: (_, catalog, __) => ListView.builder(
@@ -31,9 +30,6 @@ class HomeScreen extends StatelessWidget {
           },
         ),
       ),
-      bottomNavigationBar: const BottomTabBar(),
-      floatingActionButton: const NewPostButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

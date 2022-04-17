@@ -17,32 +17,27 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(65),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 25, right: 25, bottom: 35),
-            child: TextField(
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                hintText: "Search",
-                prefixIcon: const Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Icon(
-                    Icons.search,
-                    size: 25,
-                  ),
-                ),
-                contentPadding: const EdgeInsets.all(15),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide.none,
-                ),
+        toolbarHeight: 66,
+        elevation: 0,
+        title: TextField(
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Colors.white,
+            hintText: "Search",
+            prefixIcon: const Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Icon(
+                Icons.search,
+                size: 25,
               ),
+            ),
+            contentPadding: const EdgeInsets.all(15),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30),
+              borderSide: BorderSide.none,
             ),
           ),
         ),
-        elevation: 0,
       ),
       body: Consumer<CatalogueProvider>(
         builder: (_, catalog, __) => ListView.builder(
