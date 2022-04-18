@@ -1,3 +1,4 @@
+import 'package:bookspace/constants/constants.dart';
 import 'package:bookspace/models/listing.dart';
 import 'package:bookspace/models/post.dart';
 import 'package:bookspace/providers/catalogueProvider.dart';
@@ -16,7 +17,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Bookspace"),
         elevation: 0,
-        toolbarHeight: 66,
+        toolbarHeight: Constants.toolbarHeight,
       ),
       body: Consumer<CatalogueProvider>(
         builder: (_, catalog, __) => ListView.builder(

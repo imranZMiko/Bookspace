@@ -2,6 +2,7 @@ import 'package:bookspace/constants/custom_colors.dart';
 import 'package:bookspace/constants/custom_navigator.dart';
 import 'package:bookspace/view/screens/homeScreen.dart';
 import 'package:bookspace/view/screens/loginScreen.dart';
+import 'package:bookspace/view/screens/tabScreen.dart';
 import 'package:bookspace/view/widgets/authButton.dart';
 import 'package:bookspace/view/widgets/authField.dart';
 import 'package:bookspace/view/widgets/authNavigation.dart';
@@ -40,7 +41,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 const AuthField(label: "Enter password", isObscured: true, isLast: false),
                 const AuthField(label: "Confirm password", isObscured: true, isLast: true),
                 AuthButton(text: "Register", onPressed: (){
-                  CustomNavigator.replaceWithoutAnimation(context, const HomeScreen());
+                  CustomNavigator.popAndReplaceWithoutAnimation(context, const TabScreen());
                 }),
                 AuthNavigation(headerText: "Already have an account?", buttonText: "Log In", onPressed: (){
                   CustomNavigator.replaceWithoutAnimation(context, const LoginScreen());

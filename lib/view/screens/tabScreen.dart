@@ -1,4 +1,5 @@
 import 'package:bookspace/view/screens/homeScreen.dart';
+import 'package:bookspace/view/screens/inboxScreen.dart';
 import 'package:bookspace/view/screens/newPostScreen.dart';
 import 'package:bookspace/view/screens/profileScreen.dart';
 import 'package:bookspace/view/screens/searchScreen.dart';
@@ -9,11 +10,10 @@ import '../widgets/newPostButton.dart';
 
 class TabScreen extends StatefulWidget {
   const TabScreen({Key? key}) : super(key: key);
+  static const String routeName = '/';
 
   @override
   _TabScreenState createState() => _TabScreenState();
-
-  static const String routeName = '/';
 }
 
 class _TabScreenState extends State<TabScreen> {
@@ -38,7 +38,7 @@ class _TabScreenState extends State<TabScreen> {
         },
       ),
       WillPopScope(
-        child: const HomeScreen(),
+        child: const InboxScreen(),
         onWillPop: () async {
           _selectPage(0);
           return false;

@@ -1,3 +1,4 @@
+import 'package:bookspace/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 66,
+        toolbarHeight: Constants.toolbarHeight + 16,
         elevation: 0,
         title: TextField(
           decoration: InputDecoration(

@@ -1,3 +1,4 @@
+import 'package:bookspace/view/widgets/contactButton.dart';
 import 'package:bookspace/view/widgets/profile_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,48 +20,36 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         toolbarHeight: 65,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Form(
-              child: Column(
-                children: [
-                  const ProfileImage(),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                          hintText: 'put current username here'),
+        child: SizedBox(
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Form(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    const ProfileImage(),
+                    const Padding(
+                      padding: EdgeInsets.only(
+                          top: 15, left: 25, right: 25, bottom: 5),
+                      child: Text(
+                        'Username',
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                          hintText: 'enter current password'),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      obscureText: true,
-                      decoration:
-                          const InputDecoration(hintText: 'enter new password'),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                          hintText: 'confirm new password'),
-                    ),
-                  )
-                ],
+                    const SizedBox(height: 20),
+                    ContactButton(text: "Change Username", onPressed: () {}),
+                    const SizedBox(height: 20),
+                    ContactButton(text: "Change Password", onPressed: () {}),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

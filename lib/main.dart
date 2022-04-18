@@ -1,24 +1,30 @@
 import 'package:bookspace/constants/custom_colors.dart';
 import 'package:bookspace/providers/catalogueProvider.dart';
+import 'package:bookspace/providers/inboxProvider.dart';
 import 'package:bookspace/view/screens/editProfileScreen.dart';
 import 'package:bookspace/view/screens/homeScreen.dart';
+import 'package:bookspace/view/screens/inboxScreen.dart';
+import 'package:bookspace/view/screens/postDetailsScreen.dart';
 import 'package:bookspace/view/screens/tabScreen.dart';
 import 'package:bookspace/view/widgets/postCard.dart';
 import 'package:bookspace/view/screens/loginScreen.dart';
 import 'package:bookspace/view/screens/newPostScreen.dart';
 import 'package:bookspace/view/widgets/postInspect.dart';
 import 'package:bookspace/view/screens/profileScreen.dart';
-import 'package:bookspace/view/screens/register.dart';
+import 'package:bookspace/view/screens/registerScreen.dart';
 import 'package:bookspace/view/screens/searchScreen.dart';
 import 'package:bookspace/view/screens/splashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'models/listing.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: CatalogueProvider()),
+        ChangeNotifierProvider.value(value: InboxProvider()),
       ],
       child: const MyApp(),
     ),
@@ -41,10 +47,10 @@ class MyApp extends StatelessWidget {
           onPrimary: Colors.black,
         ),
         textTheme: Theme.of(context).textTheme.apply(
-          fontFamily: "Poppins",
-        ),
+              fontFamily: "Poppins",
+            ),
       ),
-      initialRoute: TabScreen.routeName,
+      initialRoute: SplashScreen.routeName,
       routes: {
         HomeScreen.routeName: (ctx) => const HomeScreen(),
         EditProfileScreen.routeName: (ctx) => const EditProfileScreen(),
@@ -55,6 +61,7 @@ class MyApp extends StatelessWidget {
         SplashScreen.routeName: (ctx) => const SplashScreen(),
         SearchScreen.routeName: (ctx) => const SearchScreen(),
         TabScreen.routeName: (ctx) => const TabScreen(),
+        InboxScreen.routeName: (ctx) => const InboxScreen(),
       },
     );
   }

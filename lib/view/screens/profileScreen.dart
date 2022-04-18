@@ -1,4 +1,9 @@
+import 'package:bookspace/constants/custom_colors.dart';
+import 'package:bookspace/constants/custom_navigator.dart';
+import 'package:bookspace/view/screens/editProfileScreen.dart';
 import 'package:bookspace/view/widgets/postCard.dart';
+import 'package:bookspace/view/widgets/profileAvatar.dart';
+import 'package:bookspace/view/widgets/profileButton.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,64 +21,107 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Bookspace"),
-        elevation: 0,
-        toolbarHeight: 65,
-      ),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(
-              height: 150,
-              width: 150,
-              child: CircleAvatar(
-                backgroundImage: AssetImage('assets/Naruto.webp'),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Text(
-                'Welcome, John Doe',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Stack(
               children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 10.0, 0.0, 10.0),
-                  child: SizedBox(
-                    width: 150,
-                    child: ElevatedButton(
-                      child: const Text('Update Info'),
-                      onPressed: () {},
-                    ),
+                Container(
+                  height: 375,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    color: CustomColors.midGreen,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                  child: SizedBox(
-                    width: 150,
-                    child: ElevatedButton(
-                      child: const Text('Logout'),
-                      onPressed: () {},
-                    ),
+                const Positioned(
+                  left: -125,
+                  top: -30,
+                  child: CircleAvatar(
+                    backgroundColor: CustomColors.transparentGreen,
+                    radius: 120,
+                  ),
+                ),
+                const Positioned(
+                  left: -30,
+                  top: -125,
+                  child: CircleAvatar(
+                    backgroundColor: CustomColors.transparentGreen,
+                    radius: 120,
+                  ),
+                ),
+                SizedBox(
+                  height: 375,
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      ProfileAvatar(size: 80),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 375,
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const Text(
+                        "Welcome, John Doe",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: CustomColors.lightGreen,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          ProfileButton(
+                              text: "Update Info",
+                              onPressed: () {
+                                CustomNavigator.pushWithoutAnimation(
+                                    context, const EditProfileScreen());
+                              }),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          ProfileButton(text: "Log Out", onPressed: () {}),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
-            const Divider(
-              height: 20,
+            const Padding(
+              padding: EdgeInsets.only(top: 15, left: 25, right: 25, bottom: 5),
+              child: Text(
+                'Your posts',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
             ),
             const Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Text('Your posts'),
+              padding: EdgeInsets.only(left: 20, right: 20),
+              child: Divider(
+                thickness: 2,
+                color: Colors.black,
+              ),
             ),
             Consumer<CatalogueProvider>(
               builder: (_, catalog, __) => ListView.builder(
+                padding: EdgeInsets.zero,
                 physics: const NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,

@@ -1,6 +1,7 @@
 import 'package:bookspace/constants/custom_navigator.dart';
 import 'package:bookspace/view/screens/homeScreen.dart';
-import 'package:bookspace/view/screens/register.dart';
+import 'package:bookspace/view/screens/registerScreen.dart';
+import 'package:bookspace/view/screens/tabScreen.dart';
 import 'package:bookspace/view/widgets/authButton.dart';
 import 'package:bookspace/view/widgets/authNavigation.dart';
 import 'package:flutter/gestures.dart';
@@ -39,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const AuthField(label: "Enter password", isObscured: true, isLast: true),
                 const SizedBox(height: 50,),
                 AuthButton(text: "Log In", onPressed: (){
-                  CustomNavigator.replaceWithoutAnimation(context, const HomeScreen());
+                  CustomNavigator.popAndReplaceWithoutAnimation(context, const TabScreen());
                 }),
                 AuthNavigation(headerText: "New to Bookspace?", buttonText: "Register", onPressed: (){
                   CustomNavigator.replaceWithoutAnimation(context, const RegisterScreen());

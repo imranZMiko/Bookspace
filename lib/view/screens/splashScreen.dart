@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:bookspace/constants/custom_navigator.dart';
 import 'package:bookspace/view/screens/loginScreen.dart';
-import 'package:bookspace/view/screens/register.dart';
+import 'package:bookspace/view/screens/registerScreen.dart';
 import 'package:bookspace/view/widgets/authButton.dart';
 import 'package:flutter/material.dart';
 

@@ -79,7 +79,7 @@ class _ProfileImageState extends State<ProfileImage> {
             bottom: 0,
             right: 0,
             child: CircleAvatar(
-              backgroundColor: CustomColors.darkGreen,
+              backgroundColor: CustomColors.deepGreen,
               child: IconButton(
                 icon: const Icon(
                   Icons.edit,

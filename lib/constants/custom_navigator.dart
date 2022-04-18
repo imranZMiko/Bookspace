@@ -22,4 +22,17 @@ class CustomNavigator {
       ),
     );
   }
+
+  static void popAndReplaceWithoutAnimation(BuildContext context, Widget screen) {
+    Navigator.pop(context);
+    Navigator.pushReplacement(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, _, __) => screen,
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
+      ),
+    );
+    Navigator.pop(context);
+  }
 }
