@@ -36,8 +36,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   style:TextStyle(fontWeight: FontWeight.w600,
                       fontSize: 18) ,),
                 const SizedBox(height: 50,),
-                const AuthField(label: "Enter your email", isObscured: false, isLast: false),
-                const AuthField(label: "Enter password", isObscured: true, isLast: true),
+                // const AuthField(label: "Enter your email", isObscured: false, isLast: false),
+                // const AuthField(label: "Enter password", isObscured: true, isLast: true),
                 const SizedBox(height: 50,),
                 AuthButton(text: "Log In", onPressed: (){
                   CustomNavigator.popAndReplaceWithoutAnimation(context, const TabScreen());
