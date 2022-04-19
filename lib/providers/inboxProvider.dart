@@ -13,6 +13,8 @@ class InboxProvider with ChangeNotifier {
 
     final email = auth.currentUser!.email;
 
+    print(email);
+
     List<String> list = [];
 
     final ref = await FirebaseFirestore.instance
