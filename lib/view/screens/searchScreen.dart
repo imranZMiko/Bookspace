@@ -21,6 +21,10 @@ class _SearchScreenState extends State<SearchScreen> {
         toolbarHeight: Constants.toolbarHeight + 16,
         elevation: 0,
         title: TextField(
+          onSubmitted: (value) {
+            Provider.of<CatalogueProvider>(context, listen: false)
+                .getSearchPosts(value);
+          },
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,
@@ -40,17 +44,29 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
         ),
       ),
-      body: Consumer<CatalogueProvider>(
-        builder: (_, catalog, __) => ListView.builder(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemCount: catalog.catalogueList.length,
-          itemBuilder: (context, index) {
-            return PostCard(
-              post: catalog.catalogueList[index],
-            );
-          },
-        ),
+      body: FutureBuilder(
+        future: Provider.of<CatalogueProvider>(context, listen: false)
+            .getSearchPosts(""),
+        builder: (_, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting ||
+              snapshot.connectionState == ConnectionState.none) {
+            return const CircularProgressIndicator();
+          }
+          return Consumer<CatalogueProvider>(
+            builder: (_, catalog, __) {
+              return ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: catalog.searchPosts.length,
+                itemBuilder: (context, index) {
+                  return PostCard(
+                    post: catalog.searchPosts[index],
+                  );
+                },
+              );
+            },
+          );
+        },
       ),
     );
   }

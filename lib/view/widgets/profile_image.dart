@@ -55,7 +55,8 @@ class _ProfileImageState extends State<ProfileImage> {
           'image_url' : url,
         },
       );
-      Provider.of<UserProvider>(context).updateProfileImage();
+
+      await Provider.of<UserProvider>(context, listen: false).updateProfileImage();
 
       setState(() {
         isLoading = false;
@@ -80,11 +81,13 @@ class _ProfileImageState extends State<ProfileImage> {
             ),
           ),
         if (!isLoading)
-          const CircleAvatar(
+          CircleAvatar(
             backgroundColor: CustomColors.darkGreen,
             radius: 77,
             child: CircleAvatar(
-              backgroundImage: ExactAssetImage("assets/Naruto.webp"),
+              backgroundImage: NetworkImage(Provider.of<UserProvider>(context, listen: false)
+                  .currentUser
+                  .getProfilePictureUrl()),
               radius: 75,
             ),
           ),

@@ -60,21 +60,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Consumer<UserProvider>(
-                        builder: (_, user, __) => FutureBuilder(
-                          future: user.currentUser(),
-                          builder: (_, snapshot) {
-                            if( !snapshot.hasData ) {
-                              return const CircularProgressIndicator();
-                            }
-                            return ProfileAvatar(
-                              size: 80,
-                              img: NetworkImage(
-                                  (snapshot.data as bookspace_user.User)
-                                      .getProfilePictureUrl()),
-                            );
-                          }
-                        ),
+                      ProfileAvatar(
+                        size: 80,
+                        img: NetworkImage(
+                            Provider.of<UserProvider>(context, listen: false)
+                                .currentUser
+                                .getProfilePictureUrl()),
                       ),
                     ],
                   ),
@@ -86,22 +77,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Consumer<UserProvider>(
-                        builder: (_, user, __) => FutureBuilder(
-                            future: user.currentUser(),
-                            builder: (_, snapshot) {
-                              if( !snapshot.hasData ) {
-                                return Container();
-                              }
-                              return Text(
-                                "Welcome, ${(snapshot.data as bookspace_user.User).getName()}",
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  color: CustomColors.lightGreen,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              );
-                            }
+                      Text(
+                        "Welcome, ${Provider.of<UserProvider>(context, listen: false)
+                            .currentUser
+                            .getName()}",
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: CustomColors.lightGreen,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                       const SizedBox(
@@ -151,20 +134,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 color: Colors.black,
               ),
             ),
-            Consumer<CatalogueProvider>(
-              builder: (_, catalog, __) => ListView.builder(
-                padding: EdgeInsets.zero,
-                physics: const NeverScrollableScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: catalog.catalogueList.length,
-                itemBuilder: (context, index) {
-                  return PostCard(
-                    post: catalog.catalogueList[index],
-                  );
-                },
-              ),
-            ),
+            // Consumer<CatalogueProvider>(
+            //   builder: (_, catalog, __) => ListView.builder(
+            //     padding: EdgeInsets.zero,
+            //     physics: const NeverScrollableScrollPhysics(),
+            //     scrollDirection: Axis.vertical,
+            //     shrinkWrap: true,
+            //     itemCount: catalog.catalogueList.length,
+            //     itemBuilder: (context, index) {
+            //       return PostCard(
+            //         post: catalog.catalogueList[index],
+            //       );
+            //     },
+            //   ),
+            // ),
           ],
         ),
       ),

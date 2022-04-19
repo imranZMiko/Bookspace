@@ -5,6 +5,7 @@ import 'package:bookspace/providers/userProvider.dart';
 import 'package:bookspace/view/screens/editProfileScreen.dart';
 import 'package:bookspace/view/screens/homeScreen.dart';
 import 'package:bookspace/view/screens/inboxScreen.dart';
+import 'package:bookspace/view/screens/loadingScreen.dart';
 import 'package:bookspace/view/screens/postDetailsScreen.dart';
 import 'package:bookspace/view/screens/tabScreen.dart';
 import 'package:bookspace/view/widgets/postCard.dart';
@@ -59,7 +60,19 @@ class MyApp extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (ctx, userSnapshot) {
           if (userSnapshot.hasData) {
-            return const TabScreen();
+            return Consumer<UserProvider>(
+              builder: (_, user, __) {
+                return FutureBuilder(
+                  future: user.getCurrentUserData(),
+                  builder: (_, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const LoadingScreen();
+                    }
+                    return const TabScreen();
+                  },
+                );
+              },
+            );
           }
           return const SplashScreen();
         },

@@ -1,7 +1,7 @@
 import 'package:bookspace/models/post.dart';
 
 class Request extends Post{
-  late int _requestID;
+  late String _requestID;
 
   Request({required requestID, required bookName, required authorName, required genre, required posterEmail, required description}){
     _requestID = requestID;
@@ -12,8 +12,8 @@ class Request extends Post{
     setDescription(description);
   }
 
-  int getRequestID() => _requestID;
-  void setRequestID(int requestID){
+  String getRequestID() => _requestID;
+  void setRequestID(String requestID){
     _requestID = requestID;
   }
 }

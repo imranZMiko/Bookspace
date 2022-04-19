@@ -25,40 +25,59 @@ class PostCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.asset('assets/splash_background.jpg'),
-                  ),
-                ),
-                const Padding(
-                  padding:
-                      EdgeInsets.only(top: 15, bottom: 5, left: 18, right: 18),
-                  child: Text(
-                    'Dummy Book',
-                    style: TextStyle(
-                      fontSize: 24,
+                if (post is Listing)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.network((post as Listing).getImageUrl()),
                     ),
                   ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 5),
-                  child: Text(
-                    'Dummy Author',
-                    style: TextStyle(
-                      fontSize: 15,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: 15, bottom: 5, left: 18, right: 18),
+                          child: Text(
+                            post.getBookName(),
+                            style: TextStyle(
+                              fontSize: 24,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding:
+                              EdgeInsets.only(left: 20, right: 20, bottom: 5),
+                          child: Text(
+                            post.getAuthorName(),
+                            style: TextStyle(
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding:
+                              EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                          child: Text(
+                            post.getGenre(),
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                  child: Text(
-                    'Dummy Genre',
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
+                    if (post is Listing)
+                      if ((post as Listing).getPrice() != -1)
+                        Padding(
+                          padding: const EdgeInsets.all(30),
+                          child: Text("৳${(post as Listing).getPrice()}", style: TextStyle(fontSize: 16),),
+                        )
+                  ],
                 ),
               ],
             ),

@@ -1,13 +1,13 @@
 import 'package:bookspace/models/post.dart';
 
 class Listing extends Post {
-  late int _listingID;
+  late String _listingID;
   late double _price;
   late String _condition;
   late String _imageUrl;
 
   Listing({
-    required int listingID,
+    required String listingID,
     required String bookName,
     required String authorName,
     required String genre,
@@ -28,8 +28,8 @@ class Listing extends Post {
     _imageUrl = imageUrl;
   }
 
-  int getListingID() => _listingID;
-  void setListingID(int listingID) {
+  String getListingID() => _listingID;
+  void setListingID(String listingID) {
     _listingID = listingID;
   }
 

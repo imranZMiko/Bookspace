@@ -2,6 +2,9 @@ import 'package:bookspace/view/widgets/contactButton.dart';
 import 'package:bookspace/view/widgets/profile_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/userProvider.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
@@ -31,12 +34,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   children: [
                     const SizedBox(height: 20),
                     const ProfileImage(),
-                    const Padding(
-                      padding: EdgeInsets.only(
+                    Padding(
+                      padding: const EdgeInsets.only(
                           top: 15, left: 25, right: 25, bottom: 5),
                       child: Text(
-                        'Username',
-                        style: TextStyle(
+                        Provider.of<UserProvider>(context, listen: false)
+                            .currentUser
+                            .getName(),
+                        style: const TextStyle(
                           fontSize: 20,
                         ),
                       ),

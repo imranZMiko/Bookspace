@@ -6,8 +6,10 @@ import 'package:bookspace/view/widgets/authButton.dart';
 import 'package:bookspace/view/widgets/contactButton.dart';
 import 'package:bookspace/view/widgets/profileAvatar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/listing.dart';
+import '../../providers/userProvider.dart';
 
 class PostDetailsScreen extends StatelessWidget {
   const PostDetailsScreen({Key? key, required this.post}) : super(key: key);
@@ -33,36 +35,56 @@ class PostDetailsScreen extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
+              if (post is Listing)
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.asset('assets/splash_background.jpg'),
+                child: Image.network((post as Listing).getImageUrl()),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 15, bottom: 5),
-                child: Text(
-                  post.getBookName(),
-                  style: const TextStyle(
-                    fontSize: 24,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: 15, bottom: 5, left: 18, right: 18),
+                        child: Text(
+                          post.getBookName(),
+                          style: TextStyle(
+                            fontSize: 24,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                        EdgeInsets.only(left: 20, right: 20, bottom: 5),
+                        child: Text(
+                          post.getAuthorName(),
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                        EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                        child: Text(
+                          post.getGenre(),
+                          style: TextStyle(
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 2, right: 2, bottom: 5),
-                child: Text(
-                  post.getAuthorName(),
-                  style: const TextStyle(
-                    fontSize: 15,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 2, right: 2, bottom: 20),
-                child: Text(
-                  post.getGenre(),
-                  style: const TextStyle(
-                    fontSize: 14,
-                  ),
-                ),
+                  if (post is Listing)
+                    if ((post as Listing).getPrice() != -1)
+                      Padding(
+                        padding: const EdgeInsets.all(30),
+                        child: Text("৳${(post as Listing).getPrice()}", style: TextStyle(fontSize: 16),),
+                      )
+                ],
               ),
               const Divider(
                 color: Colors.black,
@@ -71,15 +93,22 @@ class PostDetailsScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 0),
                 child: Row(
-                  children: const [
+                  children: [
                     ProfileAvatar(
                       size: 30,
-                      img: ExactAssetImage("assets/Naruto.webp"),
+                      img: NetworkImage(
+                          Provider.of<UserProvider>(context, listen: false)
+                              .currentUser
+                              .getProfilePictureUrl()),
                     ),
                     Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                      child: Text("John Doe"),
+                          const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                      child: Text(
+                        Provider.of<UserProvider>(context, listen: false)
+                            .currentUser
+                            .getName(),
+                      ),
                     ),
                   ],
                 ),
