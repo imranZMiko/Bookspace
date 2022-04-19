@@ -16,38 +16,32 @@ class InboxScreen extends StatelessWidget {
         elevation: 0,
         toolbarHeight: Constants.toolbarHeight,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            FutureBuilder(
-              future:
-                  Provider.of<InboxProvider>(context, listen: false).getInbox(),
-              builder: (_, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                return RefreshIndicator(
-                    onRefresh: () async {
-                      Provider.of<InboxProvider>(context, listen: false)
-                          .getInbox();
-                    },
-                    child: Consumer<InboxProvider>(
-                      builder: (_, inbox, __) => ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: inbox.convList.length,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return ConversationTile(
-                              convID: inbox.convList[index]);
-                        },
-                      ),
-                    ));
-              },
-            ),
-          ],
+      body: RefreshIndicator(
+        onRefresh: () async {
+          Provider.of<InboxProvider>(context, listen: false).getInbox();
+        },
+        child: FutureBuilder(
+          future: Provider.of<InboxProvider>(context, listen: false).getInbox(),
+          builder: (_, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return Consumer<InboxProvider>(
+              builder: (_, inbox, __) => SizedBox(
+                height: MediaQuery.of(context).size.height,
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: inbox.convList.length,
+                  itemBuilder: (context, index) {
+                    return ConversationTile(convID: inbox.convList[index]);
+                  },
+                ),
+              ),
+            );
+          },
         ),
       ),
     );
