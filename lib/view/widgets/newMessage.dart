@@ -56,13 +56,6 @@ class _NewMessageState extends State<NewMessage> {
                 filled: true,
                 fillColor: Colors.white,
                 labelText: "Send a Message...",
-                prefixIcon: const Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Icon(
-                    Icons.search,
-                    size: 25,
-                  ),
-                ),
                 contentPadding: const EdgeInsets.all(15),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),

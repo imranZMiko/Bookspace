@@ -28,17 +28,23 @@ class InboxScreen extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 }
-                return Consumer<InboxProvider>(
-                  builder: (_, inbox, __) => ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: inbox.convList.length,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return ConversationTile(convID: inbox.convList[index]);
+                return RefreshIndicator(
+                    onRefresh: () async {
+                      Provider.of<InboxProvider>(context, listen: false)
+                          .getInbox();
                     },
-                  ),
-                );
+                    child: Consumer<InboxProvider>(
+                      builder: (_, inbox, __) => ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: inbox.convList.length,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return ConversationTile(
+                              convID: inbox.convList[index]);
+                        },
+                      ),
+                    ));
               },
             ),
           ],

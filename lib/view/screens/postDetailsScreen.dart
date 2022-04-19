@@ -21,6 +21,8 @@ class PostDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(post.getPosterEmail());
+    print(Provider.of<UserProvider>(context, listen: false).currentUser.getEmail());
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -138,10 +140,10 @@ class PostDetailsScreen extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              if (post.getPosterEmail() !=
+              if ( post.getPosterEmail() !=
                   Provider.of<UserProvider>(context, listen: false)
                       .currentUser
-                      .getEmail())
+                      .getEmail() )
                 Center(
                   child: FutureBuilder<
                       List<QueryDocumentSnapshot<Map<String, dynamic>>>>(

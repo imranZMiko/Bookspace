@@ -16,7 +16,10 @@ class ChatScreen extends StatelessWidget {
     print(conversation.getConversationID());
     return Scaffold(
       appBar: AppBar(
-        title: Text(conversation.getReceiverName()),
+        title: Text(conversation.getReceiverEmail() ==
+                Provider.of<UserProvider>(context).currentUser.getEmail()
+            ? conversation.getSenderName()
+            : conversation.getReceiverName()),
       ),
       body: Column(
         children: [

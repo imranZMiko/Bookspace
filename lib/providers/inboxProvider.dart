@@ -22,7 +22,12 @@ class InboxProvider with ChangeNotifier {
       list.add(element.id);
     }
 
+    final ref2 = await FirebaseFirestore.instance
+        .collection("inboxes").where('receiver_email', isEqualTo: email).get();
 
+    for (var element in ref2.docs) {
+      list.add(element.id);
+    }
 
     _inbox = Inbox(conversationList: list);
 
