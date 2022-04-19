@@ -1,9 +1,12 @@
 import 'package:bookspace/constants/custom_colors.dart';
 import 'package:bookspace/constants/custom_navigator.dart';
+import 'package:bookspace/models/user.dart' as bookspace_user;
+import 'package:bookspace/providers/userProvider.dart';
 import 'package:bookspace/view/screens/editProfileScreen.dart';
 import 'package:bookspace/view/widgets/postCard.dart';
 import 'package:bookspace/view/widgets/profileAvatar.dart';
 import 'package:bookspace/view/widgets/profileButton.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -56,8 +59,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      ProfileAvatar(size: 80),
+                    children: [
+                      Consumer<UserProvider>(
+                        builder: (_, user, __) => FutureBuilder(
+                          future: user.currentUser(),
+                          builder: (_, snapshot) {
+                            if( !snapshot.hasData ) {
+                              return const CircularProgressIndicator();
+                            }
+                            return ProfileAvatar(
+                              size: 80,
+                              img: NetworkImage(
+                                  (snapshot.data as bookspace_user.User)
+                                      .getProfilePictureUrl()),
+                            );
+                          }
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -68,16 +86,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      const Text(
-                        "Welcome, John Doe",
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: CustomColors.lightGreen,
-                          fontWeight: FontWeight.w500,
+                      Consumer<UserProvider>(
+                        builder: (_, user, __) => FutureBuilder(
+                            future: user.currentUser(),
+                            builder: (_, snapshot) {
+                              if( !snapshot.hasData ) {
+                                return Container();
+                              }
+                              return Text(
+                                "Welcome, ${(snapshot.data as bookspace_user.User).getName()}",
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  color: CustomColors.lightGreen,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              );
+                            }
                         ),
                       ),
                       const SizedBox(
-                        height: 5,
+                        height: 10,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -92,7 +120,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const SizedBox(
                             width: 15,
                           ),
-                          ProfileButton(text: "Log Out", onPressed: () {}),
+                          ProfileButton(
+                              text: "Log Out",
+                              onPressed: () async {
+                                await FirebaseAuth.instance.signOut();
+                              }),
                         ],
                       ),
                       const SizedBox(
