@@ -1,18 +1,37 @@
-import 'package:bookspace/models/conversation.dart';
 import 'package:bookspace/models/inbox.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class InboxProvider with ChangeNotifier{
-  final Inbox _inbox = Inbox(
-    conversationList: [1, 2, 3, 4, 5,6,7,8,9,10],
-    email: "dummy@dummy.com"
+class InboxProvider with ChangeNotifier {
+  Inbox _inbox = Inbox(
+    conversationList: [],
   );
 
-  Inbox get inbox {
-    return _inbox;
+  Future<void> getInbox() async {
+    final auth = FirebaseAuth.instance;
+
+    final email = auth.currentUser!.email;
+
+    List<String> list = [];
+
+    final ref = await FirebaseFirestore.instance
+        .collection("inboxes").where('sender_email', isEqualTo: email).get();
+
+    for (var element in ref.docs) {
+      list.add(element.id);
+    }
+
+
+
+    _inbox = Inbox(conversationList: list);
+
+    print(convList);
+
+    notifyListeners();
   }
 
-  List<int> get convList {
+  List<String> get convList {
     return [..._inbox.getConversationList()];
   }
 }

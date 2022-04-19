@@ -1,26 +1,15 @@
 import 'package:bookspace/constants/custom_colors.dart';
 import 'package:bookspace/providers/catalogueProvider.dart';
+import 'package:bookspace/providers/conversationProvider.dart';
 import 'package:bookspace/providers/inboxProvider.dart';
 import 'package:bookspace/providers/userProvider.dart';
-import 'package:bookspace/view/screens/editProfileScreen.dart';
-import 'package:bookspace/view/screens/homeScreen.dart';
-import 'package:bookspace/view/screens/inboxScreen.dart';
 import 'package:bookspace/view/screens/loadingScreen.dart';
-import 'package:bookspace/view/screens/postDetailsScreen.dart';
 import 'package:bookspace/view/screens/tabScreen.dart';
-import 'package:bookspace/view/widgets/postCard.dart';
-import 'package:bookspace/view/screens/loginScreen.dart';
-import 'package:bookspace/view/screens/newPostScreen.dart';
-import 'package:bookspace/view/widgets/postInspect.dart';
-import 'package:bookspace/view/screens/profileScreen.dart';
-import 'package:bookspace/view/screens/registerScreen.dart';
-import 'package:bookspace/view/screens/searchScreen.dart';
 import 'package:bookspace/view/screens/splashScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'models/listing.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,6 +20,7 @@ void main() async {
         ChangeNotifierProvider.value(value: CatalogueProvider()),
         ChangeNotifierProvider.value(value: InboxProvider()),
         ChangeNotifierProvider.value(value: UserProvider()),
+        ChangeNotifierProvider.value(value: ConversationProvider()),
       ],
       child: const MyApp(),
     ),

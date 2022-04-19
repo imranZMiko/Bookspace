@@ -1,19 +1,13 @@
 class Inbox{
-  late String _userEmail;
-  late List<int> _conversationList;
+  late List<String> _conversationList;
 
-  Inbox({required String email, required List<int> conversationList}){
-    _userEmail = email;
+  Inbox({required List<String> conversationList}){
     _conversationList = conversationList;
   }
 
-  String getUserEmail() => _userEmail;
-  void setUserEmail(String email){
-    _userEmail = email;
-  }
 
-  List<int> getConversationList() => _conversationList;
-  void setConversationList(List<int> conversationList){
+  List<String> getConversationList() => _conversationList;
+  void setConversationList(List<String> conversationList){
     _conversationList = conversationList;
   }
 }

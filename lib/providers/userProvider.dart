@@ -1,9 +1,7 @@
 import 'package:bookspace/models/user.dart' as bookspace_user;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class UserProvider with ChangeNotifier {
   late bookspace_user.User _currentUser;
@@ -20,7 +18,7 @@ class UserProvider with ChangeNotifier {
         userID: ref.docs[0].id,
         name: ref.docs[0].data()['username'],
         email: ref.docs[0].data()['email'],
-        profilePictureUrl: ref.docs[0].data()['']);
+        profilePictureUrl: ref.docs[0].data()['image_url']);
   }
 
   Future<void> getCurrentUserData() async {

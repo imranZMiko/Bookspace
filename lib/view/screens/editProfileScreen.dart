@@ -1,7 +1,5 @@
-import 'package:bookspace/view/widgets/contactButton.dart';
 import 'package:bookspace/view/widgets/profile_image.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/userProvider.dart';
@@ -46,10 +44,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    ContactButton(text: "Change Username", onPressed: () {}),
-                    const SizedBox(height: 20),
-                    ContactButton(text: "Change Password", onPressed: () {}),
                   ],
                 ),
               ),

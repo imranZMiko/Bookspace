@@ -1,22 +1,15 @@
-import 'package:bookspace/constants/constants.dart';
 import 'package:bookspace/constants/custom_colors.dart';
 import 'package:bookspace/constants/custom_navigator.dart';
-import 'package:bookspace/providers/userProvider.dart';
-import 'package:bookspace/view/screens/homeScreen.dart';
 import 'package:bookspace/view/screens/loginScreen.dart';
-import 'package:bookspace/view/screens/tabScreen.dart';
 import 'package:bookspace/view/widgets/authButton.dart';
 import 'package:bookspace/view/widgets/authField.dart';
 import 'package:bookspace/view/widgets/authNavigation.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:io';
 
-import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);

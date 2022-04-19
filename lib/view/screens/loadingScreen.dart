@@ -1,11 +1,5 @@
 import 'dart:ui';
-import 'package:bookspace/constants/custom_navigator.dart';
-import 'package:bookspace/view/screens/loginScreen.dart';
-import 'package:bookspace/view/screens/registerScreen.dart';
-import 'package:bookspace/view/widgets/authButton.dart';
 import 'package:flutter/material.dart';
-
-import '../../main.dart';
 
 class LoadingScreen extends StatelessWidget {
   static const String routeName = '/loadingScreen';

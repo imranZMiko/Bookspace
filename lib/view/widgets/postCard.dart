@@ -40,31 +40,31 @@ class PostCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               top: 15, bottom: 5, left: 18, right: 18),
                           child: Text(
                             post.getBookName(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 24,
                             ),
                           ),
                         ),
                         Padding(
-                          padding:
-                              EdgeInsets.only(left: 20, right: 20, bottom: 5),
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 20, bottom: 5),
                           child: Text(
                             post.getAuthorName(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 15,
                             ),
                           ),
                         ),
                         Padding(
-                          padding:
-                              EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 20, bottom: 20),
                           child: Text(
                             post.getGenre(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 14,
                             ),
                           ),
@@ -75,7 +75,10 @@ class PostCard extends StatelessWidget {
                       if ((post as Listing).getPrice() != -1)
                         Padding(
                           padding: const EdgeInsets.all(30),
-                          child: Text("৳${(post as Listing).getPrice()}", style: TextStyle(fontSize: 16),),
+                          child: Text(
+                            "৳${(post as Listing).getPrice()}",
+                            style: TextStyle(fontSize: 16),
+                          ),
                         )
                   ],
                 ),

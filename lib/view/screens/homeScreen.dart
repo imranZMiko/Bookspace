@@ -1,8 +1,5 @@
 import 'package:bookspace/constants/constants.dart';
-import 'package:bookspace/models/listing.dart';
-import 'package:bookspace/models/post.dart';
 import 'package:bookspace/providers/catalogueProvider.dart';
-import 'package:bookspace/view/widgets/newPostButton.dart';
 import 'package:bookspace/view/widgets/postCard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +26,7 @@ class HomeScreen extends StatelessWidget {
             builder: (_, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting ||
                   snapshot.connectionState == ConnectionState.none) {
-                return const CircularProgressIndicator();
+                return const Center(child: CircularProgressIndicator());
               }
               return ListView.builder(
                 scrollDirection: Axis.vertical,

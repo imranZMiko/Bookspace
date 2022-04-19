@@ -1,6 +1,5 @@
 import 'package:bookspace/constants/custom_colors.dart';
 import 'package:bookspace/constants/custom_navigator.dart';
-import 'package:bookspace/models/user.dart' as bookspace_user;
 import 'package:bookspace/providers/userProvider.dart';
 import 'package:bookspace/view/screens/editProfileScreen.dart';
 import 'package:bookspace/view/widgets/postCard.dart';
@@ -78,9 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        "Welcome, ${Provider.of<UserProvider>(context, listen: false)
-                            .currentUser
-                            .getName()}",
+                        "Welcome, ${Provider.of<UserProvider>(context, listen: false).currentUser.getName()}",
                         style: const TextStyle(
                           fontSize: 18,
                           color: CustomColors.lightGreen,
@@ -134,20 +131,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 color: Colors.black,
               ),
             ),
-            // Consumer<CatalogueProvider>(
-            //   builder: (_, catalog, __) => ListView.builder(
-            //     padding: EdgeInsets.zero,
-            //     physics: const NeverScrollableScrollPhysics(),
-            //     scrollDirection: Axis.vertical,
-            //     shrinkWrap: true,
-            //     itemCount: catalog.catalogueList.length,
-            //     itemBuilder: (context, index) {
-            //       return PostCard(
-            //         post: catalog.catalogueList[index],
-            //       );
-            //     },
-            //   ),
-            // ),
+            Consumer<CatalogueProvider>(
+              builder: (_, catalog, __) => FutureBuilder(
+                future: catalog.getMyPosts(),
+                builder: (_, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting ||
+                      snapshot.connectionState == ConnectionState.none) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  return ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: catalog.myPosts.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return PostCard(
+                        post: catalog.myPosts[index],
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),

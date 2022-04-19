@@ -5,7 +5,6 @@ import 'package:bookspace/view/screens/registerScreen.dart';
 import 'package:bookspace/view/widgets/authButton.dart';
 import 'package:flutter/material.dart';
 
-import '../../main.dart';
 
 class SplashScreen extends StatelessWidget {
   static const String routeName = '/splashScreen';

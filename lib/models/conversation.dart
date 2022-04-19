@@ -1,28 +1,45 @@
-import 'package:bookspace/models/message.dart';
+class Conversation {
+  late String _conversationID;
+  late String _senderEmail;
+  late String _senderName;
+  late String _receiverName;
+  late String _receiverEmail;
 
-class Conversation{
-  late int _conversationID;
-  late String _recipientEmail;
-  late List<Message> _messageList;
-
-  Conversation({required int conversationID, required String recipientEmail, required List<Message> messageList}){
+  Conversation(
+      {required String conversationID,
+      required String senderEmail,
+      required String receiverEmail,
+      required String senderName,
+      required String receiverName}) {
     _conversationID = conversationID;
-    _recipientEmail = recipientEmail;
-    _messageList = messageList;
+    _senderEmail = senderEmail;
+    _receiverEmail = receiverEmail;
+    _senderName = senderName;
+    _receiverName = receiverName;
   }
 
-  int getConversationID() => _conversationID;
-  void setConversationID(int conversationID){
+  String getConversationID() => _conversationID;
+  void setConversationID(String conversationID) {
     _conversationID = conversationID;
   }
 
-  String getRecipientEmail() => _recipientEmail;
-  void setRecipientEmail(String recipientEmail){
-    _recipientEmail = recipientEmail;
+  String getSenderEmail() => _senderEmail;
+  void setSenderEmail(String senderEmail) {
+    _senderEmail = senderEmail;
   }
 
-  List<Message> getMessageList() => _messageList;
-  void setMessageList(List<Message> messageList){
-    _messageList = messageList;
+  String getReceiverEmail() => _receiverEmail;
+  void setReceiverEmail(String receiverEmail) {
+    _receiverEmail = receiverEmail;
+  }
+
+  String getSenderName() => _senderName;
+  void setSenderName(String senderName) {
+    _senderName = senderName;
+  }
+
+  String getReceiverName() => _receiverName;
+  void setReceiverName(String receiverName) {
+    _receiverName = receiverName;
   }
 }

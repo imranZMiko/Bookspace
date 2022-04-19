@@ -1,17 +1,12 @@
 import 'package:bookspace/constants/custom_navigator.dart';
-import 'package:bookspace/view/screens/homeScreen.dart';
 import 'package:bookspace/view/screens/registerScreen.dart';
-import 'package:bookspace/view/screens/tabScreen.dart';
 import 'package:bookspace/view/widgets/authButton.dart';
 import 'package:bookspace/view/widgets/authNavigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 
 import '../../constants/custom_colors.dart';
-import '../../providers/userProvider.dart';
 import '../widgets/authField.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -24,6 +19,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _controller = TextEditingController();
   String _email = '';
   String _password = '';
 
@@ -97,6 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 AuthField(
                   label: "Enter your email",
+                  controller: _controller,
                   isObscured: false,
                   isLast: false,
                   validator: (value) {
@@ -120,7 +117,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     return null;
                   },
                   onSaved: (value) {
-                    print("hi");
                     _password = value;
                   },
                 ),
@@ -130,6 +126,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 AuthButton(
                   text: "Log In",
                   onPressed: login,
+                ),
+                AuthNavigation(
+                  headerText: "Forgot your password?",
+                  buttonText: "Click here",
+                  onPressed: () {
+                    FirebaseAuth.instance.sendPasswordResetEmail(email: _controller.text);
+                  },
                 ),
                 AuthNavigation(
                   headerText: "New to Bookspace?",
