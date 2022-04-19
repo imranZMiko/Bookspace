@@ -1,4 +1,8 @@
 import 'package:bookspace/constants/custom_colors.dart';
+import 'package:bookspace/providers/userProvider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -20,35 +24,45 @@ class _ProfileImageState extends State<ProfileImage> {
       isLoading = true;
     });
 
-    Image image =
-        await ImagePicker().pickImage(source: ImageSource.gallery) as Image;
+    final image = await ImagePicker()
+        .pickImage(source: ImageSource.gallery, imageQuality: 50);
+    var firebaseUser = FirebaseAuth.instance.currentUser;
 
-    setState(() {
-      isLoading = false;
-    });
+    File imageFile = File(image!.path);
 
-    // } on FirebaseException catch (err) {
-    //   if (err.code == 'object-not-found') {
-    //     await ref.putFile(imageFile).whenComplete(() => null);
-    //
-    //     setState(() {
-    //       isLoading = false;
-    //     });
-    //   }
-    // } catch (err) {
-    //   print(err);
-    //   ScaffoldMessenger.of(ctx).showSnackBar(
-    //     SnackBar(
-    //       content: Text(err.toString()),
-    //       backgroundColor:
-    //       Provider.of<ThemeInfo>(context, listen: false).chosenTheme ==
-    //           ThemeMode.light
-    //           ? Colors.teal[100]
-    //           : Colors.teal[900],
-    //     ),
-    //   );
-    //   print(err);
-    // }
+    final ref = FirebaseStorage.instance
+        .ref()
+        .child('user_image')
+        .child(firebaseUser!.uid + '.jpg');
+
+    try {
+      await ref.putFile(imageFile).whenComplete(() => null);
+
+      final url = await ref.getDownloadURL();
+
+      final prevData = await FirebaseFirestore.instance
+          .collection("users")
+          .doc(firebaseUser.uid)
+          .get();
+
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(firebaseUser.uid)
+          .set(
+        {
+          'username': prevData.data()!['username'],
+          'email': prevData.data()!['email'],
+          'image_url' : url,
+        },
+      );
+      Provider.of<UserProvider>(context).updateProfileImage();
+
+      setState(() {
+        isLoading = false;
+      });
+    }  catch (err) {
+      print(err);
+    }
   }
 
   @override

@@ -43,6 +43,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
                   children: const [
                     ProfileAvatar(
                       size: 30,
+                      img: ExactAssetImage("assets/Naruto.webp"),
                     ),
                     Padding(
                       padding:

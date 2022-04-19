@@ -1,6 +1,7 @@
 import 'package:bookspace/constants/custom_colors.dart';
 import 'package:bookspace/providers/catalogueProvider.dart';
 import 'package:bookspace/providers/inboxProvider.dart';
+import 'package:bookspace/providers/userProvider.dart';
 import 'package:bookspace/view/screens/editProfileScreen.dart';
 import 'package:bookspace/view/screens/homeScreen.dart';
 import 'package:bookspace/view/screens/inboxScreen.dart';
@@ -14,17 +15,21 @@ import 'package:bookspace/view/screens/profileScreen.dart';
 import 'package:bookspace/view/screens/registerScreen.dart';
 import 'package:bookspace/view/screens/searchScreen.dart';
 import 'package:bookspace/view/screens/splashScreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:firebase_core/firebase_core.dart';
 import 'models/listing.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: CatalogueProvider()),
         ChangeNotifierProvider.value(value: InboxProvider()),
+        ChangeNotifierProvider.value(value: UserProvider()),
       ],
       child: const MyApp(),
     ),
@@ -50,19 +55,15 @@ class MyApp extends StatelessWidget {
               fontFamily: "Poppins",
             ),
       ),
-      initialRoute: SplashScreen.routeName,
-      routes: {
-        HomeScreen.routeName: (ctx) => const HomeScreen(),
-        EditProfileScreen.routeName: (ctx) => const EditProfileScreen(),
-        LoginScreen.routeName: (ctx) => const LoginScreen(),
-        NewPostScreen.routeName: (ctx) => const NewPostScreen(),
-        ProfileScreen.routeName: (ctx) => const ProfileScreen(),
-        RegisterScreen.routeName: (ctx) => const RegisterScreen(),
-        SplashScreen.routeName: (ctx) => const SplashScreen(),
-        SearchScreen.routeName: (ctx) => const SearchScreen(),
-        TabScreen.routeName: (ctx) => const TabScreen(),
-        InboxScreen.routeName: (ctx) => const InboxScreen(),
-      },
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (ctx, userSnapshot) {
+          if (userSnapshot.hasData) {
+            return const TabScreen();
+          }
+          return const SplashScreen();
+        },
+      ),
     );
   }
 }

@@ -1,13 +1,22 @@
+import 'package:bookspace/constants/constants.dart';
 import 'package:bookspace/constants/custom_colors.dart';
 import 'package:bookspace/constants/custom_navigator.dart';
+import 'package:bookspace/providers/userProvider.dart';
 import 'package:bookspace/view/screens/homeScreen.dart';
 import 'package:bookspace/view/screens/loginScreen.dart';
 import 'package:bookspace/view/screens/tabScreen.dart';
 import 'package:bookspace/view/widgets/authButton.dart';
 import 'package:bookspace/view/widgets/authField.dart';
 import 'package:bookspace/view/widgets/authNavigation.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:io';
+
+import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -24,19 +33,66 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String _email = '';
   String _password = '';
 
-  void _trySubmit(){
+  void register() async {
     final isValid = _formKey.currentState!.validate();
+    final _auth = FirebaseAuth.instance;
     FocusScope.of(context).unfocus();
-    print("hi");
 
-    print(isValid);
-
-    if(isValid){
+    if (isValid) {
       _formKey.currentState?.save();
 
-      print(_username);
-      print(_email);
-      print(_password);
+      _username.trim();
+      _email.trim();
+      _password.trim();
+
+      UserCredential userCredential;
+      try {
+        userCredential = await _auth.createUserWithEmailAndPassword(
+            email: _email, password: _password);
+
+        final ref = FirebaseStorage.instance.ref().child('default_profile.jpg');
+
+        final url = await ref.getDownloadURL();
+
+        await FirebaseFirestore.instance
+            .collection("users")
+            .doc(userCredential.user!.uid)
+            .set(
+          {
+            'username': _username,
+            'email': _email,
+            'image_url': url,
+          },
+        );
+
+        Navigator.of(context).pop();
+      } on PlatformException catch (err) {
+        var message = 'An error occurred';
+
+        if (err.message != null) {
+          message = err.message!;
+        }
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(message),
+          ),
+        );
+      } on FirebaseAuthException catch (err) {
+        var message = 'An error occurred';
+
+        if (err.message != null) {
+          message = err.message!;
+        }
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(message),
+          ),
+        );
+      } catch (err) {
+        print(err);
+      }
     }
   }
 
@@ -72,7 +128,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     }
                     return null;
                   },
-                  onSaved: (value){
+                  onSaved: (value) {
                     _username = value;
                   },
                 ),
@@ -86,7 +142,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     }
                     return null;
                   },
-                  onSaved: (value){
+                  onSaved: (value) {
                     _email = value;
                   },
                 ),
@@ -101,7 +157,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     }
                     return null;
                   },
-                  onSaved: (value){
+                  onSaved: (value) {
                     _password = value;
                   },
                 ),
@@ -113,20 +169,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     if (value.isEmpty) {
                       return "Password must be longer than 7 characters";
                     }
-                    if(value != _controller.text){
+                    if (value != _controller.text) {
                       return "Passwords do not match";
                     }
                     return null;
                   },
-                  onSaved: (_){},
+                  onSaved: (_) {},
                 ),
                 AuthButton(
-                    text: "Register",
-                    onPressed: () {
-                      _trySubmit();
-                      // CustomNavigator.popAndReplaceWithoutAnimation(
-                      //     context, const TabScreen());
-                    }),
+                  text: "Register",
+                  onPressed: register,
+                ),
                 AuthNavigation(
                   headerText: "Already have an account?",
                   buttonText: "Log In",

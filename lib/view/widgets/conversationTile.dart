@@ -13,6 +13,7 @@ class ConversationTile extends StatelessWidget {
       child: ListTile(
         leading: const ProfileAvatar(
           size: 25,
+          img: ExactAssetImage("assets/Naruto.webp"),
         ),
         title: const Text("User name"),
         subtitle: const Text("Last text"),

@@ -74,6 +74,7 @@ class PostDetailsScreen extends StatelessWidget {
                   children: const [
                     ProfileAvatar(
                       size: 30,
+                      img: ExactAssetImage("assets/Naruto.webp"),
                     ),
                     Padding(
                       padding:
