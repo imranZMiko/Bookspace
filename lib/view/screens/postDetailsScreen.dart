@@ -2,6 +2,7 @@ import 'package:bookspace/constants/constants.dart';
 import 'package:bookspace/constants/custom_navigator.dart';
 import 'package:bookspace/models/conversation.dart';
 import 'package:bookspace/models/post.dart';
+import 'package:bookspace/models/user.dart';
 import 'package:bookspace/providers/conversationProvider.dart';
 import 'package:bookspace/view/screens/chatScreen.dart';
 import 'package:bookspace/view/widgets/contactButton.dart';
@@ -99,25 +100,26 @@ class PostDetailsScreen extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 0),
-                child: Row(
-                  children: [
-                    ProfileAvatar(
-                      size: 30,
-                      img: NetworkImage(
-                          Provider.of<UserProvider>(context, listen: false)
-                              .currentUser
-                              .getProfilePictureUrl()),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 0),
-                      child: Text(
-                        Provider.of<UserProvider>(context, listen: false)
-                            .currentUser
-                            .getName(),
-                      ),
-                    ),
-                  ],
+                child: FutureBuilder<User>(
+                  future: Provider.of<UserProvider>(context, listen: false).userByEmail(post.getPosterEmail()),
+                  builder: (_, snapshot){
+                    if(snapshot.connectionState == ConnectionState.waiting){
+                      return const Center(child: CircularProgressIndicator(),);
+                    }
+                    return Row(
+                      children: [
+                        ProfileAvatar(
+                          size: 30,
+                          img: NetworkImage(snapshot.data!.getProfilePictureUrl()),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 0),
+                          child: Text(snapshot.data!.getName()),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
               const Divider(

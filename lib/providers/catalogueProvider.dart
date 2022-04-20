@@ -18,7 +18,7 @@ class CatalogueProvider with ChangeNotifier {
   List<Post> get searchPosts {
     return _searchCatalogue.getPostList();
   }
-  
+
   List<Post> get myPosts {
     return _myCatalogue.getPostList();
   }
@@ -77,8 +77,8 @@ class CatalogueProvider with ChangeNotifier {
 
     final ref = await FirebaseFirestore.instance
         .collection("posts")
-        .limit(30)
         .orderBy("createdAt", descending: true)
+        .limit(30)
         .get();
 
     for (var element in ref.docs) {
@@ -120,7 +120,8 @@ class CatalogueProvider with ChangeNotifier {
     final email = auth.currentUser!.email;
 
     final ref = await FirebaseFirestore.instance
-        .collection("posts").where("email", isEqualTo: email)
+        .collection("posts")
+        .where("email", isEqualTo: email)
         .get();
 
     for (var element in ref.docs) {
