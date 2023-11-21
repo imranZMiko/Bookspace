@@ -1,16 +1,8 @@
 # bookspace
 
-A new Flutter project.
+Bookspace, an Android application, simplifies book-related interactions for users. The app allows straightforward sharing of book collections and includes a marketplace feature for listing and exploring available titles. Direct messaging facilitates communication between users interested in shared books or potential trades. Bookspace offers a practical and technically sound platform, emphasizing simplicity and direct engagement with books.
 
-## Getting Started
+The application's focus is on enabling users to share, sell, and purchase books with ease, providing a no-frills solution for those seeking a direct and functional book-related experience. With an uncomplicated approach, Bookspace aligns with users looking for a straightforward solution to connect over their shared passion for literature.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Demonstration
+https://www.youtube.com/watch?v=b5fDUtKXNBs
